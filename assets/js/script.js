@@ -1,4 +1,4 @@
-const API_KEY = "BMsHZZbTMsqyA81lIBU7ZV2BMz5etHb49U7mfPH3";
+const API_KEY = "0LfuULGGR7AG1SuLfgpY4MyCQiLkyJALLnMyHEBA";
 //get loading page
 const loaderContainer = document.querySelector('.loader-container');
 //get modal

@@ -1,4 +1,4 @@
-const API_KEY = "BMsHZZbTMsqyA81lIBU7ZV2BMz5etHb49U7mfPH3";
+const API_KEY = "0LfuULGGR7AG1SuLfgpY4MyCQiLkyJALLnMyHEBA";
 
 let showTitle = document.getElementById("titleId");
 let showPoster = document.getElementById("show-poster");
