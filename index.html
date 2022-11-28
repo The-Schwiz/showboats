@@ -1,132 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Krona+One&family=Pacifico&family=Roboto:wght@700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"> -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <script
-      src="https://kit.fontawesome.com/4a25a17f73.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="./assets/style.css" />
-    <title>Show Boat</title>
-  </head>
 
-  <body>
-    <main>
-      <nav class="navbar is-flex-direction-row is-align-items-center" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Pacifico&family=Roboto:wght@700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <script src="https://kit.fontawesome.com/4a25a17f73.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./assets/style.css" />
+  <title>Show Boat</title>
+</head>
+
+<body>
+  <main>
+    <nav class="navbar is-flex-direction-row is-align-items-center" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
         <div class="home-icon">
           <a class="navbar-item" href="index.html">
-            <img
-              src="/assets/images/sailboat-light.png"
-              alt="logo"
-              width="30"
-              height="24"
-              class="nav-header"/>
-              <h1>Show Boat</h1>
-            </a>
-              <!-- <h1>Show Boat</h1> -->
-         </div>
-        <div>
-          <i class="fa-regular fa-heart watchlist-home"></i>
+            <img src="./assets/images/sailboat-light.png" alt="logo" width="30" height="24" class="nav-header" /></a>
+          <h1>Show Boat</h1>
         </div>
-      </nav>
-      <div class="loader-container">
-        <img src="/assets/images/sailboat-light.png" class="boat-movement" width="40"
-        height="34"></div>
+
+  
+
+
+        <div>
+          <i class="fa-regular fa-heart watchlist-home" id="heart-btn-home"></i>
+        </div>
+
+        <div id="list-modal" class="movieModalContainer">
+          <div class="movieModalContent">
+            <h3>My Watch List</h3>
+            <ul id="liked-list" class="movieModalList"></ul>
+          </div>
+        </div>
+    </nav>
+
+    <div class="weather-container">
+        <div class="weatherDiv">
+          <button
+            class="button is-link"
+            id="wbtn"
+            type="button"
+            onclick=""
+          >Movie Night?</button>
+          <p></p>
+        </div>
+        <div class="weather weatherDiv">
+          <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
+          <h5 class = "weatherLine"></h5>
+          <button type="button" id = "closeWeather">X</button>
+
+        </div>
+      </div>
+    
+    
+    <div class="loader-container">
+      <img src="/assets/images/sailboat-light.png" class="boat-movement" width="40" height="34">
+    </div>
     </div>
 
     <div class="modal">
-        <div class="modal-header">
-        </div>
-        <div class="modal-content">
-            <h1>Ahoy, Matey!</h1>
-          <p>That search won't get ya the booty y'arr after! </p>
-          <div class="modal-buttons">
-            <button
-            class="button is-link"
-            id="cancel-btn"
-            type="button" onclick="closeModal()"
-          >Try Again!</button>
-        </div>
+      <div class="modal-header">
+      </div>
+      <div class="modal-content">
+        <h2>Ahoy, Matey!</h2>
+        <p>That search won't get ya the booty y'arr after! </p>
+        <div class="modal-buttons">
+          <button class="button is-link" id="cancel-btn" type="button" onclick="closeModal()">Try Again!</button>
         </div>
       </div>
+    </div>
 
-      <div id="search-bar"      class="home-search-bar">
-        <input
-          id="search-text"
-          type="text"
-          placeholder="Search thousands of titles to find out where to stream!"/>
-        <button
-            class="button is-link"
-            id="search-btn"
-            type="button"
-            onclick="fetchBySearch()"
-          >Go!</button>
-        </div>
+
+
+
+
+    <div id="search-bar" class="home-search-bar">
+      <input id="search-text" type="text" placeholder="Search thousands of titles to find out where to stream!" />
+      <button class="button is-link" id="search-btn" type="button" onclick="fetchBySearchHome()">Go!</button>
+    </div>
+    </div>
+
+    <p><b>Search these services and many more!</b></p>
+
+    <div class="row providers columns">
+      <div class="column">
+        <img src="./assets/images/Apple.png" class="logos" alt="Apple Logo" />
       </div>
+      <div class="column">
+        <img src="./assets/images/Prime.png" class="logos" alt="Prime Logo" />
+      </div>
+      <div class="column">
+        <img src="./assets/images/Netflix.png" class="logos" alt="Netflix Logo" />
+      </div>
+      <div class="column">
+        <img src="./assets/images/Dplus.png" class="logos" alt="Disney Logo" />
+      </div>
+      <div class="column">
+        <img src="./assets/images/Crave.png" class="logos" alt="Apple Logo" />
+      </div>
+      <div class="column">
+        <img src="./assets/images/Hulu.png" class="logos" alt="Prime Logo" />
+      </div>
+      <div class="column">
+        <img src="./assets/images/Youtube.png" class="logos" alt="Netflix Logo" />
+      </div>
+      <div class="column">
+        <img src="./assets/images/fubo.png" class="logos" alt="Disney Logo" />
+      </div>
+    </div>
+  </main>
 
-      <p><b>Search these services and many more!</b></p>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
+  <script src="./assets/js/script.js"></script>
+</body>
 
-      <div class="row providers columns">
-        <div class="column">
-          <img src="./assets/images/Apple.png" class="logos" alt="Apple Logo"/>
-        </div>
-        <div class="column">
-          <img src="./assets/images/Prime.png" class="logos" alt="Prime Logo"/>
-        </div>
-        <div class="column">
-          <img
-            src="./assets/images/Netflix.png"
-            class="logos"
-            alt="Netflix Logo"/>
-        </div>
-        <div class="column">
-          <img
-            src="./assets/images/Dplus.png"
-            class="logos"
-            alt="Disney Logo"/>
-        </div>
-        <div class="column">
-            <img src="./assets/images/Crave.png" class="logos" alt="Apple Logo"/>
-        </div>
-        <div class="column">
-            <img src="./assets/images/Hulu.png" class="logos" alt="Prime Logo"/>
-        </div>
-        <div class="column">
-            <img
-              src="./assets/images/Youtube.png"
-              class="logos"
-              alt="Netflix Logo"/>
-        </div>
-          <div class="column">
-            <img
-              src="./assets/images/fubo.png"
-              class="logos"
-              alt="Disney Logo"
-            />
-          </div>
-        </div>
-    </main>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
-      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
-      crossorigin="anonymous"
-    ></script>
-    <!-- <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
-    <script src="./assets/js/script.js"></script>
-  </body>
 </html>

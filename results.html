@@ -1,133 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Krona+One&family=Pacifico&family=Roboto:wght@700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"> -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <script
-      src="https://kit.fontawesome.com/4a25a17f73.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="./assets/results.css" />
-    <title>Show Boat Results</title>
-  </head>
 
-  <body>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <div class="home-icon">
-          <a class="navbar-item" href="index.html">
-            <img
-              src="/assets/images/sailboat-light.png"
-              alt="logo"
-              width="30"
-              height="24"
-              class="nav-header"
-          /> 
-          <h1>Show Boat</h1>
-        </a>
-          
-          <i class="fa-regular fa-heart watchlist-results"></i>
-        </div>
-        <div id="search-bar" class="results-search-bar">
-          <input
-            id="search-text"
-            type="text"
-            placeholder="Search another title!"
-          />
-          <button
-            class="button is-link"
-            id="search-btn"
-            type="button"
-            onclick=""
-          >Go!</button>
-        </div>
-      </div>
-    </nav>
-    <div class="loader-container">
-        <img src="/assets/images/sailboat-light.png" class="boat-movement" width="40"
-        height="34"></div>
-    <main>
-      <div class="result-display">
-        <a id="show-link" class="show-poster" href="">
-          <img id="show-poster" src="" alt="Movie Poster" height="300px" />
-        </a>
-        <ul id="show-info">
-          <li id="titleId"><b>Title:</b></li>
-          <li id="availableOnId">Available on:</li>
-          <li id="releaseDateId">Release date:</li>
-          <li id="userRatingId">User Rating:</li>
-          <li id="criticsScoreId">Critics Score:</li>
-          <li id="durationId">Duration:</li>
-          <li id="genresId">Genre(s):</li>
-          <li id="typeId">Type:</li>
-        </ul>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Krona+One&family=Pacifico&family=Roboto:wght@700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <script src="https://kit.fontawesome.com/4a25a17f73.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./assets/results.css" />
+  <title>Show Boat</title>
+</head>
 
-      <p><b>You may also like...</b></p>
-      <div id="recommended">
-        <div class="row providers columns">
-          <div class="column">
-            <img
-              class="logos"
-              id="similarTitle0"
-              src=""
-              class="logos"
-              alt="Apple Logo"
-              onclick="storeId0()"
-            />
-          </div>
-          <div class="column">
-            <img
-              class="logos"
-              id="similarTitle1"
-              src=""
-              class="logos"
-              alt="Prime Logo"
-              onclick="storeId1()"
-            />
-          </div>
-          <div class="column">
-            <img
-              class="logos"
-              id="similarTitle2"
-              src=""
-              class="logos ="
-              alt="Netflix Logo"
-              onclick="storeId2()"
-            />
-          </div>
-          <div class="column">
-            <img
-              class="logos"
-              id="similarTitle3"
-              src=""
-              class="logos"
-              alt="Disney Logo"
-              onclick="storeId3()"
-            />
-          </div>
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <div class="home-icon">
+        <a class="navbar-item" href="./index.html">
+          <img src="/assets/images/sailboat-light.png" alt="logo" width="30" height="24" class="nav-header" /></a>
+        <h1>Show Boat</h1>
+        <i class="fa-regular fa-heart watchlist-results" id="heart-btn-results"></i>
+      </div>
+      <div id="search-bar" class="results-search-bar">
+        <input id="search-text" type="text" placeholder="Search another title!" />
+
+        <!-- maddy fix the button on click  -->
+        <button class="button is-link" id="search-btn" type="button" onclick="fetchBySearchResults()">Go!</button>
+      </div>
+    </div>
+  </nav>
+  <div class="loader-container">
+    <img src="/assets/images/sailboat-light.png" class="boat-movement" width="40" height="34">
+  </div>
+  
+  <div class="modal">
+    <div class="modal-header">
+    </div>
+    <div class="modal-content">
+        <h1>Ahoy, Matey!</h1>
+      <p>That search won't get ya the booty y'arr after! </p>
+      <div class="modal-buttons">
+        <button
+        class="button is-link"
+        id="cancel-btn"
+        type="button" onclick="closeModal()"
+      >Try Again!</button>
+    </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="result-display">
+      <a id="show-link" class="show-poster" href="">
+        <img id="show-poster" src="" alt="Movie Poster" height="300px" />
+      </a>
+      <ul id="show-info">
+        <li id="titleId"><b>Title:</b></li>
+        <li id="availableOnId">Available on:</li>
+        <li id="releaseDateId">Release date:</li>
+        <li id="userRatingId">User Rating:</li>
+        <li id="criticsScoreId">Critics Score:</li>
+        <li id="durationId">Duration:</li>
+        <li id="genresId">Genre(s):</li>
+        <li id="typeId">Type:</li>
+      </ul>
+    </div>
+
+    <p><b>You may also like...</b></p>
+    <!-- is id recommended used anywhere? -->
+    <div id="recommended">
+      <div class="row providers columns">
+        <div class="column">
+          <img class="logos" id="similarTitle0" src="" class="logos" alt="Apple Logo" onclick="storeId0()" />
+        </div>
+        <div class="column">
+          <img class="logos" id="similarTitle1" src="" class="logos" alt="Prime Logo" onclick="storeId1()" />
+        </div>
+        <div class="column">
+          <img class="logos" id="similarTitle2" src="" class="logos =" alt="Netflix Logo" onclick="storeId2()" />
+        </div>
+        <div class="column">
+          <img class="logos" id="similarTitle3" src="" class="logos" alt="Disney Logo" onclick="storeId3()" />
         </div>
       </div>
-    </main>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
-      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
-      crossorigin="anonymous"
-    ></script>
-    <script src="./assets/js/results.js"></script>
-    <script>
-      "./data.json";
-    </script>
-  </body>
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
+  <script src="./assets/js/results.js"></script>
+</body>
+
 </html>
+

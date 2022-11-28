@@ -15,23 +15,34 @@ let similarTitle0 = document.getElementById("similarTitle0");
 let similarTitle1 = document.getElementById("similarTitle1");
 let similarTitle2 = document.getElementById("similarTitle2");
 let similarTitle3 = document.getElementById("similarTitle3");
+let heartBtnResults = document.getElementById("heart-btn-results");
+let modal = document.querySelector(".modal");
 
+//need to prevent likedMovieArray from clearing when adding new movies on results page after being on home page
+let likedMovieArray = [];
 const loaderContainer = document.querySelector('.loader-container');
 
+function closeModal() {
+    modal.style.display = "none";
+    hideLoading();
+}
+
 window.addEventListener('load', () => {
-    loaderContainer.style.display = 'none';
+    loaderContainer.style.visibility = 'hidden';
 });
 
-// const displayLoading = () => {
-//     loaderContainer.display = 'block';
-// };
+const displayLoading = () => {
+    loaderContainer.style.visibility = 'visible';
+};
 
-// const hideLoading = () => {
-//     loaderContainer.style.display = 'none';
-// };
+const hideLoading = () => {
+    loaderContainer.style.visibility = 'hidden';
+};
 
 function resultsPage() {
     // on load of second html, get object from local storage
+    document.querySelector(".fa-heart").classList.add("fa-regular");
+    document.querySelector(".fa-heart").classList.remove("fa-solid");
     const showDetails = localStorage.getItem("searchedShow");
     show = JSON.parse(showDetails)
 
@@ -72,6 +83,7 @@ function resultsPage() {
             similarTitle2.setAttribute('src', (data.poster));
         });
     idSearchLink3 = `https://api.watchmode.com/v1/title/` + (show.similarTitles[3]) + `/details/?apiKey=${API_KEY}&append_to_response=sources`;
+    console.log(idSearchLink3);
     fetch(idSearchLink3)
         .then(function (response) {
             return response.json();
@@ -82,7 +94,7 @@ function resultsPage() {
 };
 
 resultsPage();
-
+hideLoading();
 
 function fetchById() {
     let getTitleId = localStorage.getItem("titleId");
@@ -101,7 +113,6 @@ function fetchById() {
                 if (data.sources[i].type === "sub") {
                     console.log("im working!");
                     let availableOn = (data.sources[i].name);
-                    // availableOn.textContent = (data.sources[i].name);
                     console.log(availableOn);
                     // create an object and store inside local storage
                     let searchedShow = {
@@ -121,9 +132,41 @@ function fetchById() {
                     // local storage if using a lot of data
                     localStorage.setItem("searchedShow", JSON.stringify(searchedShow));
                     resultsPage();
+                    hideLoading();
+                
                 };
             };
 
+        });
+};
+
+function fetchBySearchResults() {
+    displayLoading()
+    let searchValue = document.getElementById("search-text").value
+
+    console.log(searchValue);
+    console.log(typeof searchValue);
+
+    let searchBarLink = `https://api.watchmode.com/v1/search/?apiKey=${API_KEY}&search_field=name&search_value=${searchValue}`
+
+    console.log(searchBarLink);
+
+    // then we'll fetch using the updated URL
+    fetch(searchBarLink)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            if (!data.title_results[0]) {
+                modal.style.display = "block"
+            } else {
+                modal.style.display = "none";
+                let titleId = {
+                    id: data.title_results[0].id
+                }
+                localStorage.setItem("titleId", JSON.stringify(titleId));
+                fetchById();
+            }
         });
 };
 
@@ -170,3 +213,46 @@ function storeId3() {
     localStorage.setItem("titleId", JSON.stringify(titleId));
     fetchById();
 };
+
+heartBtnResults.addEventListener("click", function (event) {
+    event.preventDefault();
+    document.querySelector(".fa-heart").classList.add("fa-solid");
+    document.querySelector(".fa-heart").classList.remove("fa-regular");
+    const showDetails = localStorage.getItem("searchedShow");
+    show = JSON.parse(showDetails)
+
+    const currentId = localStorage.getItem("titleId");
+    currentTitleId = JSON.parse(currentId)
+
+    //we already have the ID stored under titleID
+    //so we just need to store titleName with the titleID
+    let storeLikedMovie = [{
+        name: show.title,
+        id: currentTitleId.id
+    }]
+    console.log(likedMovieArray)
+    likedMovieArray.push(storeLikedMovie);
+    // console.log(likedMovieArray)
+    // console.log(likedMovieArray[0])
+    // console.log(likedMovieArray.name)
+    // console.log(likedMovieArray[i][0].name)
+
+
+    localStorage.setItem("likedMovieArray", JSON.stringify(likedMovieArray));
+});
+
+// on page load, likedMoviearray (local storage) gets pushed to empty array
+function loadLikedList() {
+    const likedArray = localStorage.getItem("likedMovieArray");
+    likedMovieList = JSON.parse(likedArray);
+    for (i = 0; i < likedMovieList.length; i++) {
+        let storeLikedMovie = [{
+            name: likedMovieList[i][0].name,
+            id: likedMovieList[i][0].id
+        }]
+        likedMovieArray.push(storeLikedMovie);
+    }
+    console.log(likedMovieArray);
+}
+
+loadLikedList();
