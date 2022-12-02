@@ -1,0 +1,396 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(137, 200, 246);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 0%, rgba(7,54,150,1) 19%, rgba(0,212,255,1) 87%);
+  height: 170vh;
+}
+
+/* header styling */
+.nav-header {
+    margin-right: 10px;
+    min-height: 99%;
+    min-width: 103%;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: rgb(31, 28, 128);
+  align-items: center;
+  box-shadow: 5px 5px 5px blue;
+  border-bottom: solid rgb(67, 59, 176);
+}
+.navbar-header {
+-webkit-animation: glow 5s ease-in-out infinite alternate;
+  -moz-animation: glow 5s ease-in-out infinite alternate;
+  animation: glow 5s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgb(140, 138, 195), 0 0 20px rgb(108, 186, 201), 0 0 30px #2566c7,
+      0 0 40px #0336f1, 0 0 50px #726b95, 0 0 60px #455279, 0 0 70px #0800e6;
+  }
+  to {
+    text-shadow: 0 0 20px rgba(114, 210, 245, 0.819), 0 0 30px #453a7b, 0 0 40px #5770f1,
+      0 0 50px #413fa7, 0 0 60px #583e95, 0 0 70px #5853fa, 0 0 80px #4d53ff;
+  }
+}
+
+
+h1 {
+  color: rgb(137, 200, 246);
+  font-size: 10px;
+  font-family: pacifico;
+
+  font-size: 40px;
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgb(45, 41, 134), 0 0 20px rgb(8, 171, 203), 0 0 30px #2566c7,
+      0 0 40px #0336f1, 0 0 50px #3b21bd, 0 0 60px #0b44ef, 0 0 70px #0800e6;
+  }
+  to {
+    text-shadow: 0 0 20px rgba(114, 210, 245, 0.819), 0 0 30px #453a7b, 0 0 40px #5770f1,
+      0 0 50px #413fa7, 0 0 60px #583e95, 0 0 70px #5853fa, 0 0 80px #4d53ff;
+  }
+}
+
+.home-icon {
+  display: inline-flex;
+}
+
+.navbar-brand {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-grow: 1;
+  background-color: rgb(31, 28, 128);
+  align-items: center;
+  margin: 5px;
+}
+
+/* weather styling */
+.weatherFlex {
+  display: flex;
+  align-items: center;
+}
+
+.weatherDescription {
+  text-transform: capitalize;
+  margin-left: 8px;
+}
+
+.weatherDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+/* .weather {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+} */
+
+/* h5 {
+  color: rgb(31, 28, 128);
+  font-size: 18px;
+  margin-right: 5px;
+  margin-top: 15px;
+  font-family: pacifico;
+} */
+
+/* .weather button {
+  height: 100%;
+  margin-left: 5px;
+  margin-top: 15px;
+  background-color: transparent;
+  color: rgb(21, 43, 167);
+} */
+
+/* liked modal styling */
+.fa-heart:hover {
+  cursor: pointer;
+}
+
+.movieModalContainer {
+  display: none;
+  position: fixed;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  margin-left: 25%;
+  margin-top: 10%;
+  width: 50%;
+  height: 100%;
+  overflow: auto;
+}
+
+.movieModalContent {
+  position: relative;
+  background-color: rgb(12, 9, 111, 0.95);
+  color: white;
+  padding: 20px;
+  margin: auto;
+  width: 75%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px blue;
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+.movieModalContent h3 {
+  text-align: center;
+  font-family: pacifico;
+  font-size: 25px;
+}
+
+.movieModalList {
+  list-style-type: none;
+  margin: 5px;
+  padding: 5px;
+}
+
+.movieModalList innertext {
+  word-wrap: normal;
+}
+
+.removeBtn {
+  float: right;
+}
+
+/* search error modal styling */
+.modal {
+  display: none;
+  position: fixed;
+  padding-top: 50px;
+  left: 0;
+  top: 0;
+  margin-left: 25%;
+  margin-top: 10%;
+  width: 50%;
+  height: 100%;
+}
+
+.modal-content {
+  position: relative;
+  background-color: rgb(12, 9, 111, 0.9);
+  padding: 20px;
+  margin: auto;
+  width: 75%;
+  border-radius: 10px;
+  box-shadow: 0 0 20px blue;
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+.modal-content p {
+  color: white;
+}
+
+.modal-content h2 {
+  color: white;
+  text-align: center;
+}
+
+.modal-buttons {
+  margin-top: 20px;
+  float: right;
+}
+
+/* loading page styling */
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.boat-movement {
+  animation: spin-anim 1.5s linear infinite;
+}
+
+@keyframes spin-anim {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-10deg);
+  }
+
+  75% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.loader-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  background: rgb(12, 9, 111, 0.8);
+  z-index: 1;
+}
+
+/* search bar styling */
+#search-bar {
+  margin-top: 220px;
+
+
+}
+
+#search-btn {
+   box-shadow: 1px 2px 2px rgb(27, 27, 231);
+}
+
+#search-text {
+  width: 60%;
+  border-radius: 5px 0px 0px 5px;
+  box-shadow: 1px 2px 2px rgb(56, 56, 238);
+}
+
+a {
+  font-size: 30px;
+}
+
+.home-search-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.watchlist-home {
+  color: rgb(137, 200, 246);
+  font-size: 25px;
+  position: relative;
+  padding: 5px;
+  margin-right: 20px;
+}
+
+/* service offering styling */
+p {
+  margin-top: 30px;
+  text-align: center;
+  color: rgb(14, 12, 60);
+  font-family: pacifico;
+  font-size: 20px;
+}
+
+.providers {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.logos {
+  box-shadow: 0 0 10px rgb(21, 43, 167);
+  min-width: 200px;
+  border-radius: 10px;
+}
+
+/* alternate screen dimension styling */
+@media screen and (max-width: 671px) {
+  .movieModalContainer {
+    display: none;
+    position: fixed;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    margin-left: -5%;
+    margin-top: 10%;
+    width: 110%;
+    height: 100%;
+    overflow: auto;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #search-bar {
+    margin-top: 110px;
+  }
+
+  .providers {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  body {
+    height: 360vh;
+    border: 5px solid rgb(137, 200, 246);
+  }
+
+  .card {
+    background-color: transparent;
+    color: white;
+    font-family: pacifico;
+    border: 3px solid rgb(31, 28, 128);
+    border-radius: 15px;
+    width: 90%;
+    padding: 5px 15px;
+    position: relative;
+    top: 55px;
+    right: 2.5%;
+  }
+
+  .navbar {
+    width: 105%;
+    left: -5px;
+    top: -5px;
+  }
+
+  .navbar-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 80px;
+  }
+}

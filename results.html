@@ -9,7 +9,7 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
   <script src="https://kit.fontawesome.com/4a25a17f73.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="./assets/results.css" />
+  <link rel="stylesheet" href="./assets/css/results.css" />
   <title>Show Boat</title>
 </head>
 
@@ -18,35 +18,30 @@
     <div class="navbar-brand">
       <div class="home-icon">
         <a class="navbar-item" href="./index.html">
-          <img src="/assets/images/sailboat-light.png" alt="logo" width="30" height="24" class="nav-header" /></a>
+          <img src="./assets/images/sailboat-light.png" alt="logo" width="30" height="24" class="nav-header" /></a>
         <h1>Show Boat</h1>
         <i class="fa-regular fa-heart watchlist-results" id="heart-btn-results"></i>
       </div>
       <div id="search-bar" class="results-search-bar">
         <input id="search-text" type="text" placeholder="Search another title!" />
 
-        <!-- maddy fix the button on click  -->
         <button class="button is-link" id="search-btn" type="button" onclick="fetchBySearchResults()">Go!</button>
       </div>
     </div>
   </nav>
   <div class="loader-container">
-    <img src="/assets/images/sailboat-light.png" class="boat-movement" width="40" height="34">
+    <img src="./assets/images/sailboat-light.png" class="boat-movement" width="40" height="34">
   </div>
-  
+
   <div class="modal">
     <div class="modal-header">
     </div>
     <div class="modal-content">
-        <h1>Ahoy, Matey!</h1>
+      <h1>Ahoy, Matey!</h1>
       <p>That search won't get ya the booty y'arr after! </p>
       <div class="modal-buttons">
-        <button
-        class="button is-link"
-        id="cancel-btn"
-        type="button" onclick="closeModal()"
-      >Try Again!</button>
-    </div>
+        <button class="button is-link" id="cancel-btn" type="button" onclick="closeModal()">Try Again!</button>
+      </div>
     </div>
   </div>
 
@@ -68,7 +63,6 @@
     </div>
 
     <p><b>You may also like...</b></p>
-    <!-- is id recommended used anywhere? -->
     <div id="recommended">
       <div class="row providers columns">
         <div class="column">

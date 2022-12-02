@@ -1,10 +1,14 @@
 const API_KEY = "0LfuULGGR7AG1SuLfgpY4MyCQiLkyJALLnMyHEBA";
-//get loading page
-const loaderContainer = document.querySelector('.loader-container');
-//get modal
+// SAVE THIS KEY! 0MKrwqaOXYN6JzTKlLZUg0qQEFEUYUmBtsxq1jEz
+
+let loaderContainer = document.querySelector('.loader-container');
 let modal = document.querySelector(".modal")
 let movieModal = document.getElementById("list-modal");
 let heartBtnHome = document.getElementById("heart-btn-home");
+let weatherBtn = document.getElementById("wbtn");
+let weatherbubble = document.querySelector('.weather');
+let weatherClose = document.getElementById("closeWeather");
+let weatherApiKey = "cd449ce8a0596130f95722331fe56ab4";
 
 function closeModal() {
     modal.style.display = "none";
@@ -40,37 +44,30 @@ function fetchBySearchHome() {
             return response.json();
         })
         .then(function (data) {
-            // if (!data.title_results[0]);
-            // confirm("Hmm...that might not work but feel free to roll the dice!"
-            // hideLoading()
-
             if (!data.title_results[0]) {
-            modal.style.display = "block";
+                modal.style.display = "block";
+                console.log("not in db")
             } else {
-            modal.style.display = "none";
+                modal.style.display = "none";
             }
-            console.log ("not in db")
             let titleId = {
                 id: data.title_results[0].id
             }
             localStorage.setItem("titleId", JSON.stringify(titleId));
-            console.log(JSON.stringify(titleId.id));//i changed this
+            console.log(JSON.stringify(titleId.id));
             titleId = JSON.stringify(titleId.id);
-            // then we can fetch using the id
+            // then we fetch using the id
             idSearchLink = `https://api.watchmode.com/v1/title/${titleId}/details/?apiKey=${API_KEY}&append_to_response=sources`;
-            // console.log(idSearchLink);
+
             fetch(idSearchLink)
                 .then(function (response) {
                     return response.json();
                 })
                 .then(function (data) {
-
-                    // hideLoading()
                     for (i = 0; i < data.sources.length; i++) {
                         if (data.sources[i].type === "sub") {
                             console.log("im working!");
                             let availableOn = (data.sources[i].name);
-                            // availableOn.textContent = (data.sources[i].name);
                             console.log(availableOn);
                             // create an object and store inside local storage
                             let searchedShow = {
@@ -87,17 +84,13 @@ function fetchBySearchHome() {
                                 webUrl: data.sources[i].web_url,
                             }
                             console.log(searchedShow);
-                            // local storage if using a lot of data
                             localStorage.setItem("searchedShow", JSON.stringify(searchedShow));
                             window.location.href = "./results.html";
                         } else {
                             modal.style.display = "block"
                         }
-
                     };
                 });
-
-
         });
 };
 
@@ -108,18 +101,15 @@ function fetchById() {
 
     // then we can fetch using the id
     idSearchLink = `https://api.watchmode.com/v1/title/${titleId}/details/?apiKey=${API_KEY}&append_to_response=sources`;
-    // console.log(idSearchLink);
     fetch(idSearchLink)
         .then(function (response) {
             return response.json();
         })
         .then(function (data) {
-
             for (i = 0; i < data.sources.length; i++) {
                 if (data.sources[i].type === "sub") {
                     console.log("im working!");
                     let availableOn = (data.sources[i].name);
-                    // availableOn.textContent = (data.sources[i].name);
                     console.log(availableOn);
                     // create an object and store inside local storage
                     let searchedShow = {
@@ -136,7 +126,6 @@ function fetchById() {
                         webUrl: data.sources[i].web_url
                     }
                     console.log(searchedShow);
-                    // local storage if using a lot of data
                     localStorage.setItem("searchedShow", JSON.stringify(searchedShow));
                     window.location.href = "./results.html";
                 };
@@ -154,7 +143,6 @@ heartBtnHome.addEventListener("click", function (event) {
         let movie = likedMovieList[i][0].name;
         let li = document.createElement("li");
         li.textContent = movie;
-        // li.innerText.style.bold;
         li.onclick = function () {
             console.log(movie);
             console.log(likedMovieList);
@@ -206,61 +194,68 @@ window.addEventListener("click", function (event) {
     }
 });
 
-
-//defined this variable outside the function
-// let weatherApiKey = "594ea481b00a6604e497673b5c4fe941";
-
-
-//below function is for the weather api
-
-
+//called when user clicks "deciding on your next movie night?"
 function weather() {
-    const apiKey = "cd449ce8a0596130f95722331fe56ab4";
-    let city = 'Toronto';
-    let weatherurl = "https://api.openweathermap.org/data/3.0/onecall?lat=43&lon=79&appid=" + apiKey;
-    fetch(weatherurl)
-        .then(function (response) {
-          console.log(response);
-          return response.json();
-          
-        })
-        .then( function (data) {
-            pop1 = data.daily.rain
-            console.log(data.daily.rain);
+    //ask user if they allow or block the website from knowing location 
+    const successCallback = (position) => {
+        console.log(position);
+        console.log(position.coords);
+        console.log(position.coords.latitude);
+        console.log(position.coords.longitude);
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        //fetch within position statement
+        let weatherurl = `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&appid=${weatherApiKey}`
+        fetch(weatherurl)
+            .then(function (response) {
+                console.log(response);
+                return response.json();
+            })
+            .then(function (data) {
+                pop = data.daily[0].pop
+                console.log(data)
+                console.log(data.daily)
+                console.log(pop)
 
-    
-            if (pop1 < 1) {
-                document.querySelector(".weatherLine").innerText = "No rain in-sight!";
+                if (pop > 0.5) {
+                    document.querySelector(".weatherLine").innerText = "Looks like stormy weather, batten down the hatches and watch a movie";
+                    document.getElementById("closeWeather").classList.remove("hide");
+                    document.getElementById("weatherIcon").classList.remove("hide");
+                } else if (pop <= 0.5) {
+                    // find next movie day
+                    for (i = 0; i < data.daily.length; i++) {
+                        if (data.daily[i].pop > 0.5) {
+                            console.log(i);
+
+                            let date = data.daily[i].dt
+                            var unixFormat = dayjs.unix(date).format('MMM D, YYYY');
+                            document.querySelector(".weatherLine").innerText = "Blimey! Smooth sailing ahead. The next stormy movie day is just over the horizon: " + unixFormat;
+                            document.getElementById("closeWeather").classList.remove("hide");
+                            document.getElementById("weatherIcon").classList.remove("hide");
+                            return;
+                        } else {
+                            document.querySelector(".weatherLine").innerText = "Shiver me timbers! Smooth sailing ahead.";
+                            document.getElementById("closeWeather").classList.remove("hide");
+                            document.getElementById("weatherIcon").classList.remove("hide");
+                        }
+                    }
                 }
-            else {
-                document.querySelector(".weatherLine").innerText = "Rain Today, Movie Night!";
-            }
-        });
-  
-    //the below code will ask the user if they want to allow or block the website from knowing location 
-    const successCallback= (position) => {
-    console.log(position);
+            });
     };
-    const errorCallback= (error) => {
-    console.log(error);
+    const errorCallback = (error) => {
+        console.log(error);
+        //show message to user "we dont know what the weather is in your area but it's always a good time for a movie"
     };
-
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    };
+};
 
-let wbtn = document.getElementById("wbtn");
-let weatherbubble = document.querySelector('.weather');
-let weatherClose = document.getElementById("closeWeather");
-
-
-wbtn.addEventListener("click", function (event) {
-    event.preventDefault();
-    document.querySelector('.weather').style.display = "block"
-    document.querySelector('.weather').style.visibility = "visible"
+weatherBtn.addEventListener("click", function () {
     weather();
-    });
+});
 
-
-weatherClose.addEventListener("click", function (event) {
-        document.querySelector('.weather').style.visibility = "hidden"
+weatherClose.addEventListener("click", function () {
+    document.getElementById("closeWeather").classList.add("hide");
+    document.getElementById("weatherIcon").classList.add("hide");
+    document.querySelector(".weatherLine").innerText = "";
 })
+

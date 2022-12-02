@@ -17,8 +17,6 @@ let similarTitle2 = document.getElementById("similarTitle2");
 let similarTitle3 = document.getElementById("similarTitle3");
 let heartBtnResults = document.getElementById("heart-btn-results");
 let modal = document.querySelector(".modal");
-
-//need to prevent likedMovieArray from clearing when adding new movies on results page after being on home page
 let likedMovieArray = [];
 const loaderContainer = document.querySelector('.loader-container');
 
@@ -57,7 +55,7 @@ function resultsPage() {
     showPoster.setAttribute('src', (show.poster));
     showLink.setAttribute('href', (show.webUrl));
 
-    // for this, we'll need to fetch the IDs and use those IDs to get the poster
+    // fetch the IDs and use those IDs to get the poster
     idSearchLink0 = `https://api.watchmode.com/v1/title/` + (show.similarTitles[0]) + `/details/?apiKey=${API_KEY}&append_to_response=sources`;
     fetch(idSearchLink0)
         .then(function (response) {
@@ -103,7 +101,6 @@ function fetchById() {
     console.log(titleId);
     // then we can fetch using the id
     idSearchLink = `https://api.watchmode.com/v1/title/${titleId}/details/?apiKey=${API_KEY}&append_to_response=sources`;
-    // console.log(idSearchLink);
     fetch(idSearchLink)
         .then(function (response) {
             return response.json();
@@ -129,14 +126,11 @@ function fetchById() {
                         webUrl: data.sources[i].web_url
                     }
                     console.log(searchedShow);
-                    // local storage if using a lot of data
                     localStorage.setItem("searchedShow", JSON.stringify(searchedShow));
                     resultsPage();
                     hideLoading();
-                
                 };
             };
-
         });
 };
 
@@ -232,11 +226,6 @@ heartBtnResults.addEventListener("click", function (event) {
     }]
     console.log(likedMovieArray)
     likedMovieArray.push(storeLikedMovie);
-    // console.log(likedMovieArray)
-    // console.log(likedMovieArray[0])
-    // console.log(likedMovieArray.name)
-    // console.log(likedMovieArray[i][0].name)
-
 
     localStorage.setItem("likedMovieArray", JSON.stringify(likedMovieArray));
 });
